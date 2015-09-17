@@ -5,3 +5,76 @@ body {
   color: #FAFAFA;
   font-family: 'Source Sans Pro', sans-serif;
 }
+
+.container {
+  align-self: center;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+h1.welcome {
+  font-weight: 200;
+  font-size: 3.2em;
+}
+
+p.lead {
+  font-size: 1.2em;
+  font-weight: 400;
+  align-self: flex-start;
+}
+
+form {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.form-control {
+  display: block;
+  box-sizing: border-box;
+  outline: none;
+  border: 1px solid #BDBDBD;
+  border-radius: 2px;
+  width: 300px;
+  height: 56px;
+  margin-bottom: 8px;
+  padding: 8px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1.2em;
+  color: #616161;
+}
+
+.btn-group {
+  align-self: center;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+/*.btn-group:last-child {
+  margin-right: 0px;
+}*/
+
+button.btn {
+  width: 144px;
+  height: 56px;
+  margin-right: 4px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1.2em;
+  color: #424242;
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+button.btn.btn-default {
+  background-color: #fed42f;
+}
+
+button.btn.btn-primary {
+  background-color: #FAFAFA;
+  margin-right: 0px;
+}
