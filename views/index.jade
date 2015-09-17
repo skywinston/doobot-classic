@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  if (!user)
+    a(href="/login") Login
+    br
+    a(href="/register") Register
+  if (user)
+    p You are currently logged in as #{user.username}
+    a(href="/logout") Logout
+  
+  //- a(href="/auth/facebook") Login with Facebook
+  //- a(href="/auth/google") Sign In with Google
+append clientside

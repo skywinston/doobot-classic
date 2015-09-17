@@ -1,0 +1,11 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    //- script(src="javascripts/facebook.js", type="text/javascript") Waiting for Facebook Login implementation
+    block content
+    block clientside
+      script(src='http://code.jquery.com/jquery.js')
+      script(src="javascripts/doobot.js")

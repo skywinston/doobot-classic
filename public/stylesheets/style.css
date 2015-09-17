@@ -1,0 +1,7 @@
+body {
+  display: flex;
+  flex-flow: column;
+  background-color: #ff9800;
+  color: #FAFAFA;
+  font-family: 'Source Sans Pro', sans-serif;
+}
