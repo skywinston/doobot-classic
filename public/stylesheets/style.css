@@ -6,6 +6,32 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
+.appnav {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-logout {
+  align-self: flex-end;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 16px;
+  justify-content: center;
+}
+.user-logout > p {
+  margin-right: 16px;
+  font-size: 1.2em;
+}
+
+.user-logout > a {
+  color: #FAFAFA;
+  margin-top: 4px;
+}
+
 .container {
   align-self: center;
   display: flex;
@@ -16,6 +42,89 @@ body {
 h1.welcome {
   font-weight: 200;
   font-size: 3.2em;
+}
+
+.onboarding {
+  align-self: center;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 320px;
+}
+
+.onboarding > h1 {
+  font-weight: 400;
+  font-size: 2.2em;
+}
+
+.onboarding > h3 {
+  font-weight: 500;
+  font-size: 1.4em;
+}
+
+.FAB {
+  border-radius: 40px;
+  width: 56px;
+  height: 56px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all .5s;
+}
+
+.FAB:hover {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  transform: scale(1.05);
+  transition: all .3s;
+}
+
+.list-chip {
+  width: 400px;
+  height: 80px;
+  background: #EEEEEE;
+  color: #424242;
+  box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.12), 0px 4px 4px 0px rgba(0,0,0,0.24);
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1.5em;
+  padding: 20px;
+  border-radius: 2px;
+  transition: all .3s;
+}
+
+.list-chip.new-mode {
+  width: 512px;
+  z-index: 2;
+  transition: all .3s;
+}
+
+.list-index {
+  align-self: center;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 840px;
+}
+
+.save-FAB {
+  align-self: center;
+  width: 48px;
+  height: 48px;
+  margin-top: 40px;
+  background-color: #EEEEEE;
+  background: url(/images/save.svg) #EEEEEE center center no-repeat;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all .3s;
+}
+
+.save-FAB:hover,
+.save-FAB:focus {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  transform: scale(1.05);
 }
 
 p.lead {

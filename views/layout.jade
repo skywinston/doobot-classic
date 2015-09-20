@@ -2,9 +2,23 @@ doctype html
 html
   head
     title= title
+    link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
     link(href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,200italic,300italic,300,400italic,600,600italic,700,700italic,900,900italic', rel='stylesheet', type='text/css')
+    link(href="/bower_components/animate.css/animate.min.css", rel="stylesheet")
+    link(rel="stylesheet", href="/stylesheets/transitions.css")
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    block authenticate
+    if (!user)
+      a(href="/login") Login
+      br
+      a(href="/register") Register
+    if (user)
+      .appnav
+        .user-logout
+          p #{user.username} 
+          a(href="/logout")
+            i.material-icons power_settings_new
     //- script(src="javascripts/facebook.js", type="text/javascript") Waiting for Facebook Login implementation
     block content
     block clientside
