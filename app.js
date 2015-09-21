@@ -11,7 +11,6 @@ var LocalStrategy = require('passport-local').Strategy;
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var lists = require('./routes/lists');
-var items = require('./routes/items');
 
 var app = express();
 // mongoose
@@ -39,7 +38,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/lists', lists);
-app.use('/items', items);
 
 // passport config
 var Account = require('./models/account');

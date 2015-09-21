@@ -54,13 +54,6 @@ $(document).ready(function() {
     height: window.innerHeight - 192 + 'px'
   });
 
-  // if($('#add-item')){
-  //   $('#add-item').click(function(){
-  //     var newItemContainer = document.createElement('div');
-  //     var newItem = document.createElement('div');
-  //   });
-  // }
-
   $('#new-list').click(function(){
     var modal = document.createElement('div');
     var listChip = document.createElement('input');
@@ -68,21 +61,57 @@ $(document).ready(function() {
     $('body').append(modal);
   });
 
-  // User clicks FAB in items index view
+  // With reload: User Clicks FAB in items index view...
   $('#add-item').click(function(){
-    //Remove the 'add a list item' hint
     $('.no-items').removeClass('animated slideInLeft').addClass('animated fadeOutDown');
-    // Create the new item form elements
-    var form = document.createElement('form');
-    $(form).attr({
-      action : '/items',
-      method : 'post',
-      id : 'new-item',
-      class : ''
-    });
-    var inputItemTitle = document.createElement('input');
-    $(inputItemTitle).attr({
-      console.log(this);
-    });
+    if( $('.list-item').length ){
+      console.log('hit the if');
+      $('.list-item').addClass('animated fadeOutDown').one(animationEnd, function(){
+        window.location = '/items/new';
+      });
+    } else {
+      console.log('hit the else');
+      
+    }
   });
+
+  // User clicks FAB in items index view
+  // $('#add-item').click(function(){
+  //   //Remove the 'add a list item' hint
+  //   $('.no-items').removeClass('animated slideInLeft').addClass('animated fadeOutDown');
+  //   // Create the new item form elements
+  //   var form = document.createElement('form');
+  //   $(form).attr({
+  //     action : '/items',
+  //     method : 'post',
+  //     id : 'new-item',
+  //     class : '',
+  //     tabindex : 1
+  //   });
+  //   var divWrapperItem = document.createElement('div');
+  //   var itemStatusBubble = document.createElement('div');
+  //   $(itemStatusBubble).attr({
+  //     class : 'item-status'
+  //   }).click(function(){
+  //     // What happens when someone marks an item as done...
+  //   });
+  //
+  //   var inputItemTitle = document.createElement('input');
+  //   $(inputItemTitle).attr({
+  //     class : 'item-title',
+  //     type : 'text',
+  //     name : 'itemTitle',
+  //     placeholder : 'Describe this item...'
+  //   });
+  //
+  //   var saveList = document.createElement('input');
+  //   $(saveList).attr({
+  //     type: 'submit',
+  //     value: ''
+  //   }).addClass('save-FAB animated slideInUp');
+  //
+  //   var itemExtras  = document.createElement('div'); // needs to be moved under each item extra once written...
+  //   $(itemExtras).addClass('item-extras');
+
+  // });
 });

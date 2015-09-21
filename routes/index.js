@@ -2,23 +2,39 @@ var express = require('express');
 var passport = require('passport');
 var Account = require('../models/account');
 var List = require('../models/list');
+var Item = require('../models/item');
 var router = express.Router();
 
 
-router.get('/', function (req, res, next) {
-  Account.find( { username : req.user.username }, function(err, user){
-    console.log("This should be the user object from the db:");
-    console.log(user);
-    List.find( { userId : user[0]._id }, function(err, lists){
-      console.log("This should be an array below:");
-      console.log(lists);
-      res.render('index', {
-        user : req.user,
-        lists : lists
+router.route('/')
+  .get(function (req, res, next) {
+    if(!req.user) { return res.redirect('/login') };
+    var user = req.user;
+    Account.find( { username : req.user.username }, function(err, user){
+      List.find( { userId : user[0]._id }, function(err, lists){
+        res.render('index', {
+          user : user,
+          lists : lists
+        });
       });
     });
+  })
+  .post(function(req, res, next){
+    List.create(req.body, function(err, list){
+      if (err) {
+        console.log("db error in POST /lists: " + err);
+        res.send('Error Code 500 - Internal Server Error');
+      } else {
+        res.redirect('/lists');
+      }
+    });
   });
-});
+
+router.route('lists/:listId')
+  .get(function(req, res, next){
+    console.log(req.user);
+  });
+
 
 router.get('/current_user', function(req, res, next) {
   console.log("Log in current_user Route", req.user);
