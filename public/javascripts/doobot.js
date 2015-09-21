@@ -68,15 +68,21 @@ $(document).ready(function() {
     $('body').append(modal);
   });
 
+  // User clicks FAB in items index view
   $('#add-item').click(function(){
+    //Remove the 'add a list item' hint
+    $('.no-items').removeClass('animated slideInLeft').addClass('animated fadeOutDown');
     // Create the new item form elements
     var form = document.createElement('form');
     $(form).attr({
       action : '/items',
       method : 'post',
-      id : 'new-item'
-      // Working here...
+      id : 'new-item',
+      class : ''
     });
     var inputItemTitle = document.createElement('input');
+    $(inputItemTitle).attr({
+      console.log(this);
+    });
   });
 });
