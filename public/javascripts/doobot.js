@@ -2,21 +2,22 @@ console.log("DooBot all up in the client!");
 
 var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 
-
 $(document).ready(function() {
+  var user;
   $.ajax({
     url: '/current_user',
     method: 'get',
     success: function(data){
       console.log("Logging the data clientside:", data);
+      user = data;
       var userId = data.user._id;
-      $('.FAB').click(function(){
+      $('#first-list').click(function(){
         var viewportHeight = window.innerHeight;
         var listForm = document.createElement('form');
         var listTitle = document.createElement('input');
         var saveList = document.createElement('input');
         var user = document.createElement('input');
-        $('.FAB').unbind('click');
+        $('#first-list').unbind('click');
 
         $(listForm).addClass('list-form').attr({
           action: '/lists',
@@ -47,35 +48,35 @@ $(document).ready(function() {
     error: function(data){
       console.log("ERROR: ", data);
     }
+  });
 
+  $('.list-bg').css({
+    height: window.innerHeight - 192 + 'px'
+  });
 
-    // $(saveList).addClass('save-FAB animated slideInUp').on('click', function(){
-    //   var listName = $(listTitle).val();
-    //   $.ajax({
-    //     url: '/current_user',
-    //     success: function(data){
-    //       var userId = data.user._id;
-    //       $.ajax({
-    //         url: '/lists',
-    //         data: {
-    //           userId : userId,
-    //           listName : listName
-    //         },
-    //         success: function(data){
-    //           $(listTitle).html('');
-    //           $('.list-chip').removeClass('new-mode').addClass('show-mode');
-    //         },
-    //         error: function(data){
-    //           console.log("Error:", data);
-    //         },
-    //         method: 'POST'
-    //       });
-    //     },
-    //     error: function(data){
-    //       console.log("ERROR: ", data);
-    //     }
-    //
-    //   });
-    // });
+  // if($('#add-item')){
+  //   $('#add-item').click(function(){
+  //     var newItemContainer = document.createElement('div');
+  //     var newItem = document.createElement('div');
+  //   });
+  // }
+
+  $('#new-list').click(function(){
+    var modal = document.createElement('div');
+    var listChip = document.createElement('input');
+    $(modal).addClass('new-list modal animated slideInUp').append(listChip);
+    $('body').append(modal);
+  });
+
+  $('#add-item').click(function(){
+    // Create the new item form elements
+    var form = document.createElement('form');
+    $(form).attr({
+      action : '/items',
+      method : 'post',
+      id : 'new-item'
+      // Working here...
+    });
+    var inputItemTitle = document.createElement('input');
   });
 });

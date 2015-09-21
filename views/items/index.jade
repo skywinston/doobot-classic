@@ -1,0 +1,42 @@
+extends ../layout
+
+block content
+  .appnav
+    a(class="all-lists", href='/')
+      i(class="material-icons") arrow_back
+      p Back to all lists
+    .user-logout
+      p= user.username
+      a(href="../../logout")
+        i.material-icons power_settings_new
+  
+  h1.list-title= list.listTitle
+  svg(id="add-item", class="FAB item-index", width='56px', height='56px', viewbox='0 0 56 56', version='1.1', xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink', xmlns:sketch='http://www.bohemiancoding.com/sketch/ns')
+    title FAB
+    desc Created with Sketch by Sky Winston.
+    defs
+      lineargradient#linearGradient-1(x1='50%', y1='0%', x2='50%', y2='98.6407844%')
+        stop(stop-color='#000000', stop-opacity='0', offset='0%')
+        stop(stop-color='#000000', stop-opacity='0', offset='51.0710977%')
+        stop(stop-color='#000000', stop-opacity='0.02', offset='78.9652589%')
+        stop(stop-color='#000000', stop-opacity='0.04', offset='100%')
+      lineargradient#linearGradient-2(x1='50%', y1='0%', x2='50%', y2='100%')
+        stop(stop-color='#FFFFFF', stop-opacity='0.8', offset='0%')
+        stop(stop-color='#FFFFFF', stop-opacity='0.4', offset='23.181793%')
+        stop(stop-color='#FFFFFF', stop-opacity='0', offset='50.8258137%')
+        stop(stop-color='#FFFFFF', stop-opacity='0', offset='100%')
+      circle#path-3(cx='28', cy='28', r='28')
+    g#Page-1(stroke='none', stroke-width='1', fill='none', fill-rule='evenodd', sketch:type='MSPage')
+      g(id='Onboarding-|-List-Index-Initial', sketch:type='MSArtboardGroup', transform='translate(-477.000000, -164.000000)')
+        g#FAB(sketch:type='MSLayerGroup', transform='translate(477.000000, 164.000000)')
+          g(opacity='0.9')
+            use(stroke='url(#linearGradient-1)', fill='#FFD600', fill-rule='evenodd', sketch:type='MSShapeGroup', xlink:href='#path-3')
+            use(stroke='url(#linearGradient-2)', fill='none', xlink:href='#path-3')
+          g#ic_add_24px(transform='translate(16.000000, 16.000000)', sketch:type='MSShapeGroup')
+            path#Shape(d='M19,13 L13,13 L13,19 L11,19 L11,13 L5,13 L5,11 L11,11 L11,5 L13,5 L13,11 L19,11 L19,13 L19,13 Z', fill='#616161')
+            path#Shape(d='M0,0 L24,0 L24,24 L0,24 L0,0 Z')
+  .list-bg
+    if(!items.length)
+      .no-items.animated.slideInLeft
+        p Next, add a list item.
+  append clientside

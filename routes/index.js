@@ -1,11 +1,23 @@
 var express = require('express');
 var passport = require('passport');
 var Account = require('../models/account');
+var List = require('../models/list');
 var router = express.Router();
 
 
-router.get('/', function (req, res) {
-    res.render('index', { user : req.user });
+router.get('/', function (req, res, next) {
+  Account.find( { username : req.user.username }, function(err, user){
+    console.log("This should be the user object from the db:");
+    console.log(user);
+    List.find( { userId : user[0]._id }, function(err, lists){
+      console.log("This should be an array below:");
+      console.log(lists);
+      res.render('index', {
+        user : req.user,
+        lists : lists
+      });
+    });
+  });
 });
 
 router.get('/current_user', function(req, res, next) {
@@ -39,7 +51,7 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
 
 router.get('/logout', function(req, res) {
     req.logout();
-    res.redirect('/');
+    res.redirect('/login');
 });
 
 router.get('/ping', function(req, res){

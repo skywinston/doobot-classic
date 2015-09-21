@@ -1,11 +1,10 @@
 extends layout
 
-block authenticate
 block content
 
   .container
     h1.welcome Welcome to DooBot
-    form(role='form', action="/login",method="post", style='max-width: 300px;')
+    form(role='form', action="/login", method="post", style='max-width: 300px;')
       p.lead Please login...
       .form-group
           input.form-control(type='text', name="username", placeholder='Enter Username')

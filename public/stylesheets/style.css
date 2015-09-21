@@ -4,13 +4,40 @@ body {
   background-color: #ff9800;
   color: #FAFAFA;
   font-family: 'Source Sans Pro', sans-serif;
+  padding: none;
+  margin: none;
 }
 
 .appnav {
   display: flex;
-  flex-flow: column;
+  flex-flow: row;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
+  height: 64px;
+  padding: 0px 16px;
+}
+
+.all-lists {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  text-decoration: none;
+}
+
+.all-lists > p {
+  font-size: 1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  text-decoration: none;
+  color: #FAFAFA;
+}
+
+.all-lists > i {
+  text-decoration: none;
+  color: #FAFAFA;
+  margin-right: 8px;
+  margin-left: 24px;
 }
 
 .user-logout {
@@ -19,7 +46,6 @@ body {
   flex-flow: row;
   align-items: center;
   margin-left: auto;
-  margin-right: 16px;
   justify-content: center;
 }
 .user-logout > p {
@@ -77,6 +103,9 @@ h1.welcome {
 }
 
 .list-chip {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
   width: 400px;
   height: 80px;
   background: #EEEEEE;
@@ -88,6 +117,9 @@ h1.welcome {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 1.5em;
   padding: 20px;
+  margin-right: 16px;
+  margin-bottom: 16px;
+  text-decoration: none;
   border-radius: 2px;
   transition: all .3s;
 }
@@ -105,6 +137,10 @@ h1.welcome {
   align-items: center;
   flex-wrap: wrap;
   max-width: 840px;
+}
+
+.list-index > a {
+  text-decoration: none;
 }
 
 .save-FAB {
@@ -186,4 +222,51 @@ button.btn.btn-default {
 button.btn.btn-primary {
   background-color: #FAFAFA;
   margin-right: 0px;
+}
+
+.list-bg {
+  width: 100%;
+  background-color: #EEEEEE;
+  position: absolute;
+  top: 192px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.FAB.item-index {
+  margin-left: 24px;
+  position: absolute;
+  top: 164px;
+  z-index: 2;
+  opacity: 1;
+}
+
+.FAB.list-index {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 2;
+}
+
+.list-title {
+  position: absolute;
+  top: 112px;
+  margin-left: 104px;
+  font-size: 2em;
+  font-weight: 400;
+}
+
+.new-list.modal {
+  padding: 24px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.no-items {
+  margin-top: 24px;
+  margin-left: 104px;
+}
+
+.no-items > p {
+  color: #424242;
+  font-size: 1.2em;
+  font-weight: 600;
 }
