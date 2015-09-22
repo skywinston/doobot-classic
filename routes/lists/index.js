@@ -40,10 +40,14 @@ router.route('/:listId/new')
     console.log(req.params.listId);
     console.log("and we should have the user");
     console.log(req.user);
-
-    // TASKS
-
-    // Serve up the /items/new template and pass in the user object & listId
+    var user = req.user;
+    List.findById( { _id : req.params.listId }, function(err, list){
+      var list = list;
+      res.render('items/new', {
+        user : user,
+        list : list
+      });
+    });
   });
 
 module.exports = router;

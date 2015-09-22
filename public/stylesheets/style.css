@@ -163,6 +163,11 @@ h1.welcome {
   transform: scale(1.05);
 }
 
+.save-FAB.new-mode {
+  background-color: #FAFAFA;
+  margin-top: 0px;;
+}
+
 p.lead {
   font-size: 1.2em;
   font-weight: 400;
@@ -253,6 +258,7 @@ button.btn.btn-primary {
   margin-left: 104px;
   font-size: 2em;
   font-weight: 400;
+  transition: all .3s ease-in-out;
 }
 
 .new-list.modal {
@@ -269,4 +275,40 @@ button.btn.btn-primary {
   color: #424242;
   font-size: 1.2em;
   font-weight: 600;
+}
+
+.title-above-new-item {
+  position: absolute;
+  top: 90px;
+  margin-left: 144px;
+}
+
+.item-chip {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  height: 64px;
+  width: 736px;
+  background: #FAFAFA;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.item-chip.new-mode {
+  /*What's unique about the new view?  The position of the item description?*/
+  margin-top: -32px;
+}
+
+.item-chip > i {
+  color: #424242;
+  margin: 0px 16px;
+}
+
+.item-description {
+  border: none;
+  outline: none;
+  background: #FAFAFA;
+  font-size: 1em;
+  width: 640px;
+  color: #424242;
 }

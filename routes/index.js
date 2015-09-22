@@ -1,9 +1,20 @@
 var express = require('express');
 var passport = require('passport');
+var fs = require('fs');
+var jade = require('jade');
 var Account = require('../models/account');
 var List = require('../models/list');
 var Item = require('../models/item');
 var router = express.Router();
+
+router.route('/new')
+  .get(function(req, res, next){
+    var user = req.user;
+    res.render('items/new-item', {
+        user : user,
+        lists : []
+    });
+  });
 
 
 router.route('/')

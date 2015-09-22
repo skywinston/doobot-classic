@@ -89,3 +89,20 @@
   -webkit-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
 }
+
+@keyframes roll-to-cancel {
+  from {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(405deg);
+    -webkit-transform: rotae(405deg);
+    -ms-transform: rotate(405deg)
+  }
+
+.rotateToCancelPos {
+  animation: roll-to-cancel;
+  animation-duration: .3s;
+}

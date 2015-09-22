@@ -61,19 +61,46 @@ $(document).ready(function() {
     $('body').append(modal);
   });
 
+  // //Uncomment this if AJAX + jade.compile doesn't pan out
+
   // With reload: User Clicks FAB in items index view...
+  // $('#add-item').click(function(){
+  //   $('.no-items').removeClass('animated slideInLeft').addClass('animated fadeOutDown');
+  //   if( $('.list-item').length ){
+  //     console.log('hit the if');
+  //     $('.list-item').addClass('animated fadeOutDown').one(animationEnd, function(){
+  //       window.location = '/items/new';
+  //     });
+  //   } else {
+  //     console.log('hit the else');
+  //
+  //   }
+  // });
+
+  // var listTitle = $('#list-title-item-view');
+  // if(listTitle){
+  //   var fab = $('#add-item');
+  //   $(listTitle).addClass('title-above-new-item');
+  //   $(fab).addClass('rotateToCancelPos');
+  // }
+
+  // Attempt at AJAX with jade.compile for one-page sweet goodness.
   $('#add-item').click(function(){
     $('.no-items').removeClass('animated slideInLeft').addClass('animated fadeOutDown');
-    if( $('.list-item').length ){
-      console.log('hit the if');
-      $('.list-item').addClass('animated fadeOutDown').one(animationEnd, function(){
-        window.location = '/items/new';
-      });
-    } else {
-      console.log('hit the else');
-      
-    }
+    $.ajax({
+      url : '/ajaxreqs',
+      method : 'get',
+      success : function(data){
+        debugger;
+        console.log("This is the data sent from the server in response to AJAX req");
+        console.log(data);
+      },
+      error : function(err){
+        console.log(err);
+      }
+    });
   });
+
 
   // User clicks FAB in items index view
   // $('#add-item').click(function(){
