@@ -18,21 +18,7 @@ router.route('/')
     });
   });
 
-router.route('/:listId')
-  .get(function(req, res, next){
-    console.log(req);
-    var user = req.user;
-    List.findById( { _id : req.params.listId}, function(err, list){
-      var list = list;
-      Item.find( { listId : list._id },function(err, items){
-        res.render('items/index.jade', {
-          user : user,
-          list : list,
-          items : items
-        });
-      });
-    });
-  });
+
 
 router.route('/:listId/new')
   .get(function(req, res, next){

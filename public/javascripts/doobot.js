@@ -2,14 +2,46 @@ console.log("DooBot all up in the client!");
 
 var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 
+function showList(){
+  var listId = $(this).attr('data-list-id');
+  $('.list-chip').addClass('animated fadeOutDown').one(animationEnd, function(){
+    $('.list-chip').remove();
+    $.ajax({
+      url : '/lists/' + listId,
+      method : 'get',
+      success : function(data){
+        var html = data;
+        var listBgHeight = window.innerHeight - 192;
+        $(data).css('height', listBgHeight + 'px').appendTo('body');
+        $('#new-list').css({
+          top : '164px'
+        }).unbind('click').click(newListItem);
+        $('.all-lists').removeClass('offstage').addClass('animated fadeInDown');
+      },
+      error : function(err){
+        console.log(err);
+      }
+    });
+  });
+}
+
+function newListItem(){
+    //bound to FAB click event while in item index view.
+    console.log("Make a new list item!");
+}
+
+function showAllLists(){
+  console.log("I'm showing all lists...");
+}
+
 $(document).ready(function() {
   var user;
   $.ajax({
     url: '/current_user',
     method: 'get',
     success: function(data){
-      console.log("Logging the data clientside:", data);
       user = data;
+      console.log("User Info:", user);
       var userId = data.user._id;
       $('#first-list').click(function(){
         var viewportHeight = window.innerHeight;
@@ -50,16 +82,13 @@ $(document).ready(function() {
     }
   });
 
+  $('.list-chip').click(showList);
+
   $('.list-bg').css({
     height: window.innerHeight - 192 + 'px'
   });
 
-  $('#new-list').click(function(){
-    var modal = document.createElement('div');
-    var listChip = document.createElement('input');
-    $(modal).addClass('new-list modal animated slideInUp').append(listChip);
-    $('body').append(modal);
-  });
+
 
   // //Uncomment this if AJAX + jade.compile doesn't pan out
 

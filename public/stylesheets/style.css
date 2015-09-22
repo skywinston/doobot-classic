@@ -23,6 +23,15 @@ body {
   flex-flow: row;
   align-items: center;
   text-decoration: none;
+  transition: all .3s;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+.all-lists.offstage {
+  visibility: hidden;
+  display: none;
 }
 
 .all-lists > p {
@@ -32,6 +41,7 @@ body {
   text-decoration: none;
   color: #FAFAFA;
 }
+
 
 .all-lists > i {
   text-decoration: none;
@@ -124,6 +134,10 @@ h1.welcome {
   transition: all .3s;
 }
 
+.list-index > .list-chip {
+  cursor: pointer;
+}
+
 .list-chip.new-mode {
   width: 512px;
   z-index: 2;
@@ -137,10 +151,6 @@ h1.welcome {
   align-items: center;
   flex-wrap: wrap;
   max-width: 840px;
-}
-
-.list-index > a {
-  text-decoration: none;
 }
 
 .save-FAB {
@@ -259,6 +269,7 @@ button.btn.btn-primary {
   font-size: 2em;
   font-weight: 400;
   transition: all .3s ease-in-out;
+  animation-delay: .2s;
 }
 
 .new-list.modal {
@@ -269,6 +280,7 @@ button.btn.btn-primary {
 .no-items {
   margin-top: 24px;
   margin-left: 104px;
+  animation-delay: .2s;
 }
 
 .no-items > p {
@@ -311,4 +323,10 @@ button.btn.btn-primary {
   font-size: 1em;
   width: 640px;
   color: #424242;
+}
+
+.FAB.item-index-view {
+  position: absolute;
+  top: 164px;
+  transition: all .3s ease-in-out;
 }

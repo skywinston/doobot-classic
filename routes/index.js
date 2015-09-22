@@ -1,7 +1,5 @@
 var express = require('express');
 var passport = require('passport');
-var fs = require('fs');
-var jade = require('jade');
 var Account = require('../models/account');
 var List = require('../models/list');
 var Item = require('../models/item');
@@ -10,10 +8,11 @@ var router = express.Router();
 router.route('/new')
   .get(function(req, res, next){
     var user = req.user;
-    res.render('items/new-item', {
-        user : user,
-        lists : []
-    });
+    console.log(req.data);
+    // res.render('items/new-item', {
+    //     user : user,
+    //     lists : []
+    // });
   });
 
 
@@ -41,11 +40,21 @@ router.route('/')
     });
   });
 
-router.route('lists/:listId')
+router.route('/lists/:listId')
   .get(function(req, res, next){
-    console.log(req.user);
+    console.log(req);
+    var user = req.user;
+    List.findById( { _id : req.params.listId}, function(err, list){
+      var list = list;
+      Item.find( { listId : list._id }, function(err, items){
+        res.render('items/index', {
+          user : user,
+          list : list,
+          items : items
+        });
+      });
+    });
   });
-
 
 router.get('/current_user', function(req, res, next) {
   console.log("Log in current_user Route", req.user);

@@ -7,8 +7,11 @@ block content
     a(href="/register") Register
   if (user)
     .appnav
+      button.all-lists.offstage(onclick="showAllLists()")
+        i(class="material-icons") keyboard_arrow_down
+        p Back to all items
       .user-logout
-        p #{user.username}
+        p= user
         a(href="/logout")
           i.material-icons power_settings_new
     if(!lists.length)
@@ -69,7 +72,6 @@ block content
 
       .list-index
         for list in lists
-          a(href='/lists/#{list._id}')
-            .list-chip 
-              =list.listTitle
+          .list-chip(data-list-id="#{list._id}") 
+            =list.listTitle
   append clientside
