@@ -50,7 +50,59 @@ function createFirstList(){
   });
 }
 
+function createList(){
+  $.ajax({
+    url : 'lists/new',
+    method : 'get',
+    success : function(data){
+      $(data).appendTo('.list-index');
+      $('.edit-title').focus().keydown(function(e){
+        if (e.which === 13) { updateList() };
+      });
+      $('.save-list-icon').click(updateList);
+    },
+    error : function(err){
+      console.log("Error from server:", err);
+    }
+  });
+
+  // create a new List from the DB
+
+  // Render the list/new jade block with info from db passed in & send to AJAX
+
+  // Inject into DOM with state changes
+}
+
+function editList(){
+  console.log("I am going to give you a form to edit your list.");
+}
+
+function updateList(){
+  var listTitle = $('.edit-title').val();
+  $.ajax({
+    url : '/lists/update',
+    method : 'post',
+    data : {
+      listTitle : listTitle
+    },
+    success : function(data){
+      console.log(data);
+      var optionsIcon = document.createElement('i');
+      $('.save-list-icon').addClass('animated fadeDownOut').remove();
+      $(optionsIcon).addClass('material-icons list-options animated fadeDownIn').html('more_vert').appendTo('.edit-mode');
+      $('.edit-mode').attr({
+        'data-list-id' : data._id
+      }).removeClass('edit-mode').click(showList);
+      $('.edit-title').attr('readonly', true).blur();
+    },
+    error : function(err){
+      console.log("Error from server:", err);
+    }
+  });
+}
+
 function showAllLists(){
+  console.log('showAllLists');
   $.ajax({
     url : '/lists',
     method : 'get',
@@ -69,6 +121,7 @@ function showAllLists(){
 
 function showList(){
   function makeBackButton(){
+    console.log('makeBackButton');
     var button = document.createElement('button');
     var icon = document.createElement('i');
     var label = document.createElement('p');
@@ -97,7 +150,7 @@ function showList(){
         var html = data;
         var listBgHeight = window.innerHeight - 192;
         $(data).css('height', listBgHeight + 'px').appendTo('body');
-        $('#new-list').css({
+        $('#robby').css({
           top : '164px'
         }).unbind('click').click(newListItem);
         makeBackButton();
@@ -112,9 +165,14 @@ function showList(){
 function newListItem(){
     //bound to FAB click event while in item index view.
     console.log("Make a new list item!");
+
+    // GET a new Item from the DB
+
+    // Render the new Item block and send to AJAX request
 }
 
 function backToAllLists(){
+  console.log("backToAllLists");
   $('.list-title').removeClass('animated slideInUp enter')
     .addClass('animated fadeOutDown exit')
     .one(animationEnd, function(){
@@ -124,16 +182,19 @@ function backToAllLists(){
     .addClass('animated fadeOutDown')
     .one(animationEnd, function(){
       $('.list-bg').remove();
-      showAllLists();
     });
   $('.all-lists').removeClass('animated fadeInDown')
     .addClass('animated fadeOutUp')
     .one(animationEnd, function(){
       $('.all-lists').remove();
     });
+  $('#robby').unbind('click').click(createList);
+  showAllLists();
 }
 
 $(document).ready(function() {
+
+  $('#robby').click(createList);
 
   $('.list-chip').click(showList);
 

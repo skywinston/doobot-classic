@@ -116,6 +116,7 @@ h1.welcome {
   display: flex;
   flex-flow: row;
   align-items: center;
+  order: 0;
   width: 400px;
   height: 80px;
   background: #EEEEEE;
@@ -124,6 +125,7 @@ h1.welcome {
   box-sizing: border-box;
   border: none;
   outline: none;
+  overflow: hidden;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 1.5em;
   padding: 20px;
@@ -138,10 +140,55 @@ h1.welcome {
   cursor: pointer;
 }
 
-.list-chip.new-mode {
-  width: 512px;
-  z-index: 2;
+.list-chip.edit-mode {
+  margin-bottom: 16px;
+  order: 1;
   transition: all .3s;
+}
+
+.show-title {
+  border: none;
+  outline: none;
+  width: 448px;
+  background: #EEEEEE;
+  font-size: 1em;
+  position: relative;
+  color: #424242;
+}
+
+.edit-title {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1em;
+  color: #424242;
+  background: #EEEEEE;
+  outline: none;
+  border: none;
+  width: 448px;
+  display: inline;
+  white-space: nowrap;
+  overflow: hidden;
+  word-break: normal!important;
+}
+
+.edit-title:focus {
+  outline: none;
+  border: none;
+}
+
+.save-list-icon {
+  margin-left: auto;
+}
+
+.list-options {
+  color: #BDBDBD;
+  margin-left: auto;
+  margin-right: -8px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+input[type="text"].list-options {
+  cursor: pointer;
 }
 
 .list-index {
@@ -151,6 +198,7 @@ h1.welcome {
   align-items: center;
   flex-wrap: wrap;
   max-width: 840px;
+  margin-top: 64px;
 }
 
 .save-FAB {
@@ -255,7 +303,7 @@ button.btn.btn-primary {
   opacity: 1;
 }
 
-.FAB.list-index {
+#robby.FAB {
   position: absolute;
   top: 24px;
   left: 24px;

@@ -20,8 +20,8 @@ router.route('/')
   .get(function (req, res, next) {
     if(!req.user) { return res.redirect('/login') };
     var user = req.user;
-    Account.find( { username : req.user.username }, function(err, user){
-      List.find( { userId : user[0]._id }, function(err, lists){
+    Account.findOne( { username : req.user.username }, function(err, user){
+      List.find( { userId : user._id }, function(err, lists){
         res.render('index', {
           user : user,
           lists : lists
@@ -37,22 +37,6 @@ router.route('/')
       } else {
         res.redirect('/lists');
       }
-    });
-  });
-
-router.route('/lists/:listId')
-  .get(function(req, res, next){
-    console.log(req);
-    var user = req.user;
-    List.findById( { _id : req.params.listId}, function(err, list){
-      var list = list;
-      Item.find( { listId : list._id }, function(err, items){
-        res.render('items/index', {
-          user : user,
-          list : list,
-          items : items
-        });
-      });
     });
   });
 

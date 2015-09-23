@@ -8,7 +8,7 @@ block content
   if (user)
     .appnav
       .user-logout
-        p= user
+        p= user.username
         a(href="/logout")
           i.material-icons power_settings_new
     if(!lists.length)
@@ -42,7 +42,7 @@ block content
         h3 Begin by creating a list.
     
     if(lists.length)
-      svg(id="new-list", class="FAB list-index", width='56px', height='56px', viewbox='0 0 56 56', version='1.1', xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink', xmlns:sketch='http://www.bohemiancoding.com/sketch/ns')
+      svg(id="robby", class="FAB", width='56px', height='56px', viewbox='0 0 56 56', version='1.1', xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink', xmlns:sketch='http://www.bohemiancoding.com/sketch/ns')
         title FAB
         desc Created with Sketch by Sky Winston.
         defs
@@ -69,6 +69,8 @@ block content
 
       .list-index
         for list in lists
-          .list-chip(data-list-id="#{list._id}") 
-            =list.listTitle
+          .list-chip(data-list-id="#{list._id}")
+            input.show-title(type="text", placeholder="Please name your list...", value="#{list.listTitle}" readonly)
+            i.material-icons.list-options more_vert 
+  
   append clientside
