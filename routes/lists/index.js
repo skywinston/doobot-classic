@@ -7,6 +7,15 @@ var Item = require('../../models/item');
 var router = express.Router();
 
 router.route('/')
+  .get(function(req, res, next){
+    console.log("Look for the user in the GET to /lists");
+    console.log(req.user);
+    List.find( { userId : req.user._id }, function(err, lists){
+      res.render('lists/index', {
+        lists: lists
+      });
+    });
+  })
   .post(function(req, res, next){
     List.create(req.body, function(err, list){
       if (err) {

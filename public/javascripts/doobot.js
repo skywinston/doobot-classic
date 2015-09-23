@@ -2,46 +2,13 @@ console.log("DooBot all up in the client!");
 
 var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 
-function showList(){
-  var listId = $(this).attr('data-list-id');
-  $('.list-chip').addClass('animated fadeOutDown').one(animationEnd, function(){
-    $('.list-chip').remove();
-    $.ajax({
-      url : '/lists/' + listId,
-      method : 'get',
-      success : function(data){
-        var html = data;
-        var listBgHeight = window.innerHeight - 192;
-        $(data).css('height', listBgHeight + 'px').appendTo('body');
-        $('#new-list').css({
-          top : '164px'
-        }).unbind('click').click(newListItem);
-        $('.all-lists').removeClass('offstage').addClass('animated fadeInDown');
-      },
-      error : function(err){
-        console.log(err);
-      }
-    });
-  });
-}
-
-function newListItem(){
-    //bound to FAB click event while in item index view.
-    console.log("Make a new list item!");
-}
-
-function showAllLists(){
-  console.log("I'm showing all lists...");
-}
-
-$(document).ready(function() {
+function createFirstList(){
   var user;
   $.ajax({
     url: '/current_user',
     method: 'get',
     success: function(data){
       user = data;
-      console.log("User Info:", user);
       var userId = data.user._id;
       $('#first-list').click(function(){
         var viewportHeight = window.innerHeight;
@@ -81,6 +48,92 @@ $(document).ready(function() {
       console.log("ERROR: ", data);
     }
   });
+}
+
+function showAllLists(){
+  $.ajax({
+    url : '/lists',
+    method : 'get',
+    success : function(data){
+      $('.list-index').append(data);
+      $('.list-chip').addClass('animated fadeInUp').click(showList);
+      $('.FAB').addClass('swift-out').css({
+        top : '24px'
+      });
+    },
+    error : function(err){
+      console.log("Error from server:", err);
+    }
+  });
+}
+
+function showList(){
+  function makeBackButton(){
+    var button = document.createElement('button');
+    var icon = document.createElement('i');
+    var label = document.createElement('p');
+    $(button).attr({
+      onclick : "backToAllLists()",
+      class : 'all-lists animated fadeInDown',
+    });
+
+    $(icon).attr({
+      class : 'material-icons'
+    }).html(
+        "keyboard_arrow_down"
+    );
+
+    $(label).html('Back to all items');
+
+    $(button).append(icon, label).prependTo('.appnav')
+  }
+  var listId = $(this).attr('data-list-id');
+  $('.list-chip').addClass('animated fadeOutDown').one(animationEnd, function(){
+    $('.list-chip').remove();
+    $.ajax({
+      url : '/lists/' + listId,
+      method : 'get',
+      success : function(data){
+        var html = data;
+        var listBgHeight = window.innerHeight - 192;
+        $(data).css('height', listBgHeight + 'px').appendTo('body');
+        $('#new-list').css({
+          top : '164px'
+        }).unbind('click').click(newListItem);
+        makeBackButton();
+      },
+      error : function(err){
+        console.log(err);
+      }
+    });
+  });
+}
+
+function newListItem(){
+    //bound to FAB click event while in item index view.
+    console.log("Make a new list item!");
+}
+
+function backToAllLists(){
+  $('.list-title').removeClass('animated slideInUp enter')
+    .addClass('animated fadeOutDown exit')
+    .one(animationEnd, function(){
+      $('.list-title').remove();
+    });
+  $('.list-bg').removeClass('animated fadeInUp')
+    .addClass('animated fadeOutDown')
+    .one(animationEnd, function(){
+      $('.list-bg').remove();
+      showAllLists();
+    });
+  $('.all-lists').removeClass('animated fadeInDown')
+    .addClass('animated fadeOutUp')
+    .one(animationEnd, function(){
+      $('.all-lists').remove();
+    });
+}
+
+$(document).ready(function() {
 
   $('.list-chip').click(showList);
 

@@ -7,9 +7,6 @@ block content
     a(href="/register") Register
   if (user)
     .appnav
-      button.all-lists.offstage(onclick="showAllLists()")
-        i(class="material-icons") keyboard_arrow_down
-        p Back to all items
       .user-logout
         p= user
         a(href="/logout")

@@ -269,7 +269,14 @@ button.btn.btn-primary {
   font-size: 2em;
   font-weight: 400;
   transition: all .3s ease-in-out;
+}
+
+.list-title.enter {
   animation-delay: .2s;
+}
+
+.list-title.exit {
+  animation-delay: 0;
 }
 
 .new-list.modal {

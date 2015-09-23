@@ -1,3 +1,14 @@
+@keyframes swift-out {
+  0%  {top: 22%;}
+  50%  {top: 69%;}
+  100% {top: 22%;}
+}
+
+.swift-out {
+  animation: swift-out 3s
+  cubic-bezier(.55,0,.1,1)
+}
+
 @-webkit-keyframes fabUp {
   from {
     -webkit-transform: scale3d(1, 1, 1);
