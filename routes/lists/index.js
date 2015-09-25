@@ -45,6 +45,20 @@ router.route('/update')
       });
     });
 
+router.route('/delete')
+  .get(function(req, res, next){
+    res.render('lists/delete');
+  })
+  .post(function(req, res, next){
+    console.log("post to lists/delete received...");
+    console.log("list ID below?");
+    console.log(req.body.listId);
+    List.findOneAndRemove( { _id : req.body.listId }, function(err, confirmation){
+      if (err) throw err;
+      res.status(304).send("List with ID of " + req.body.listId + " deleted.");
+    });
+  });
+
 router.route('/new')
   .get(function(req, res, next){
     res.render('lists/new');

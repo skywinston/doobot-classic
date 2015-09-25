@@ -460,3 +460,83 @@ input.list-title {
   top: 164px;
   transition: all .3s ease-in-out;
 }
+
+.opacity-mask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index : 100;
+  background-color: rgba(238, 238, 238, 0.9);
+  transition: all .3s;
+}
+
+.delete-sheet {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  box-sizing: border-box;
+  width: 512px;
+  height: 240px;
+  padding: 24px;
+  position: absolute;
+  z-index: 101;
+  top: 50%;
+  left: 50%;
+  margin-top: -256px;
+  margin-left: -256px;
+  background-color: #FAFAFA;
+  border-radius: 2px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.delete-sheet > h3 {
+  color: #F44336;
+  font-weight: 400;
+  font-size: 2em;
+  margin: 8px;
+}
+
+.delete-sheet > p {
+  color: #424242;
+  font-size: 1.2em;
+  margin-bottom: 24px;
+}
+
+.dialog-options {
+  width: 448px;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  align-content: space-around;
+}
+
+.delete-option {
+  margin: 0px 4px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  -webkit-order: 0;
+  -ms-flex-order: 0;
+  order: 0;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: auto;
+  -ms-flex-item-align: auto;
+  align-self: auto;
+  height: 56px;
+  background-color: #EEEEEE;
+  color: #424242;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 8px 16px;
+  border-radius: 2px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.delete-option.confirm {
+  background-color: #F44336;
+  color: #FAFAFA;
+}

@@ -40,12 +40,6 @@ function createList(){
       console.log("Error from server:", err);
     }
   });
-
-  // create a new List from the DB
-
-  // Render the list/new jade block with info from db passed in & send to AJAX
-
-  // Inject into DOM with state changes
 }
 
 function saveList(){
@@ -103,18 +97,48 @@ function updateList(){
   });
 }
 
-function showAllLists(){
-  console.log('showAllLists');
+function deleteList(){
+  console.log('deleteList()');
   $.ajax({
-    url : '/lists',
+    url : '/lists/delete',
     method : 'get',
-    success : function(data){
-      console.log($('.FAB').hasClass('item-mode'));
-      $('body').append(data);
-      $('.list-chip').addClass('animated fadeInUp').click(showList);
+    success : function(html){
+      $(html).prependTo('body');
     },
     error : function(err){
-      console.log("Error from server:", err);
+      console.log("Error from GET to /lists/delete", err);
+    }
+  });
+}
+
+function cancelDeleteList(){
+  console.log('cancelDeleteList()');
+  $('.delete-sheet').removeClass('animated fadeInUp').addClass('animated fadeOutDown');
+  $('.opacity-mask').removeClass('animated fadeIn').addClass('animated fadeOut').one(animationEnd, function(){
+    $('.opacity-mask').remove();
+  });
+}
+
+function confirmDeleteList(){
+  console.log('confirmDeleteList()');
+  var listId = $('.list-title').attr('data-list-id');
+  $.ajax({
+    url : '/lists/delete',
+    method : 'post',
+    data : {
+      listId : listId
+    },
+    success : function(confirmation){
+      $('.delete-sheet').removeClass('animated fadeInUp').addClass('animated fadeOutDown');
+      $('.opacity-mask').removeClass('animated fadeIn')
+        .addClass('animated fadeOut')
+        .one(animationEnd, function(){
+          $('.opacity-mask').remove();
+          $('.all-lists').trigger('click');
+        });
+    },
+    error : function(err){
+      console.log("Error from POST to /lists/delete:", err);
     }
   });
 }
@@ -173,15 +197,6 @@ function showList(){
   });
 }
 
-function newListItem(){
-    //bound to FAB click event while in item index view.
-    console.log('newListItem()');
-
-    // GET a new Item from the DB
-
-    // Render the new Item block and send to AJAX request
-}
-
 function backToAllLists(){
   console.log("backToAllLists");
   $('.flex-row').removeClass('animated slideInUp enter')
@@ -205,6 +220,33 @@ function backToAllLists(){
   });
   showAllLists();
 }
+
+function showAllLists(){
+  console.log('showAllLists');
+  $.ajax({
+    url : '/lists',
+    method : 'get',
+    success : function(data){
+      console.log($('.FAB').hasClass('item-mode'));
+      $('body').append(data);
+      $('.list-chip').addClass('animated fadeInUp').click(showList);
+    },
+    error : function(err){
+      console.log("Error from server:", err);
+    }
+  });
+}
+
+function newListItem(){
+    //bound to FAB click event while in item index view.
+    console.log('newListItem()');
+
+    // GET a new Item from the DB
+
+    // Render the new Item block and send to AJAX request
+}
+
+
 
 $(document).ready(function() {
 
