@@ -52,7 +52,7 @@ function saveList(){
   console.log('saveList()');
   var listTitle = $('.edit-title').val();
   $.ajax({
-    url : '/lists/update',
+    url : '/lists',
     method : 'post',
     data : {
       listTitle : listTitle
@@ -77,13 +77,30 @@ function saveList(){
 
 function editList(){
   console.log('editList()');
-  console.log("I am going to give you a form to edit your list.");
-  $('.list-title').removeAttr('readonly').focus().select().on('blur keydown', updateList);
+  $('.list-title').removeAttr('readonly').focus().select().blur(updateList).keydown(function(e){
+    if ( e.which === 13 ) { $('.list-title').trigger('blur') }
+  });
 }
 
 function updateList(){
   console.log('updateList()');
-  console.log('Going to update that list in the DB now...');
+  var listId = $('.list-title').attr('data-list-id');
+  var listTitle = $('.list-title').val();
+  $('.list-title').attr('readonly', 'readonly').unbind('blur');
+  $.ajax({
+    url : '/lists/update',
+    method : 'post',
+    data : {
+      listId : listId,
+      listTitle : listTitle
+    },
+    success : function(data){
+      console.log("Datafrom post to /lists/update:", data);
+    },
+    error : function(err){
+      console.log("Error from post to /lists/update:", err);
+    }
+  });
 }
 
 function showAllLists(){

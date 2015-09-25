@@ -18,14 +18,9 @@ router.route('/')
     });
   })
   .post(function(req, res, next){
-    List.create(req.body, function(err, list){
-      if (err) {
-        console.log("db error in POST /lists: " + err);
-        res.send('Error Code 500 - Internal Server Error');
-      } else {
-        // What happens when a user saves a newly created List?
-        res.redirect('/lists');
-      }
+    List.create( { userId : req.user._id, listTitle : req.body.listTitle }, function(err, list){
+      console.log("List from DB:", list, typeof list);
+      res.send(list);
     });
   });
 
@@ -41,11 +36,14 @@ router.route('/edit')
 
 router.route('/update')
   .post(function(req, res, next){
-    List.create( { userId : req.user._id, listTitle : req.body.listTitle }, function(err, list){
-      console.log("List from DB:", list, typeof list);
-      res.send(list);
+    List.findByIdAndUpdate(
+      { _id : req.body.listId },
+      { listTitle : req.body.listTitle },
+      function(err, data){
+        if (err) throw err;
+        res.status(304).send(data);
+      });
     });
-  });
 
 router.route('/new')
   .get(function(req, res, next){
