@@ -3,63 +3,38 @@ console.log("DooBot all up in the client!");
 var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
 
 function createFirstList(){
-  var user;
+  console.log("createFirstList()");
+  $('body').attr('data-app-state', 'onboarding');
   $.ajax({
-    url: '/current_user',
-    method: 'get',
-    success: function(data){
-      user = data;
-      var userId = data.user._id;
-      $('#first-list').click(function(){
-        var viewportHeight = window.innerHeight;
-        var listForm = document.createElement('form');
-        var listTitle = document.createElement('input');
-        var saveList = document.createElement('input');
-        var user = document.createElement('input');
-        $('#first-list').unbind('click');
-
-        $(listForm).addClass('list-form').attr({
-          action: '/lists',
-          method: 'post'
-        });
-
-        $(listTitle).addClass('list-chip new-mode animated slideInUp').attr({
-          type: "text",
-          placeholder: "Reasons why DooBot is great...",
-          name: "listTitle"
-        });
-
-        $(saveList).attr({
-          type: 'submit',
-          value: ''
-        }).addClass('save-FAB animated slideInUp');
-
-        $(user).attr({
-          type: 'hidden',
-          value: userId,
-          name: 'userId'
-        });
-
-        $('body').append(listForm);
-        $(listForm).append(listTitle, saveList, user);
+    url : '/lists/first',
+    method : 'get',
+    success : function(data){
+      console.log(data);
+      $('.instructions').addClass('animated fadeOutUp').html('Now give your list a name')
+        .removeClass('fadeOutUp').addClass('fadeInUp');
+      $(data).appendTo('body');
+      $('.edit-title').focus().keydown(function(e){
+        if (e.which === 13) { saveList() };
       });
+      $('.save-FAB').click(saveList);
     },
-    error: function(data){
-      console.log("ERROR: ", data);
+    error : function(err){
+      console.log("Error from /lists/first:", err);
     }
   });
 }
 
 function createList(){
+  console.log('createList()');
   $.ajax({
     url : 'lists/new',
     method : 'get',
     success : function(data){
       $(data).appendTo('.list-index');
       $('.edit-title').focus().keydown(function(e){
-        if (e.which === 13) { updateList() };
+        if (e.which === 13) { saveList() };
       });
-      $('.save-list-icon').click(updateList);
+      $('.save-list-icon').click(saveList);
     },
     error : function(err){
       console.log("Error from server:", err);
@@ -73,11 +48,8 @@ function createList(){
   // Inject into DOM with state changes
 }
 
-function editList(){
-  console.log("I am going to give you a form to edit your list.");
-}
-
-function updateList(){
+function saveList(){
+  console.log('saveList()');
   var listTitle = $('.edit-title').val();
   $.ajax({
     url : '/lists/update',
@@ -86,10 +58,12 @@ function updateList(){
       listTitle : listTitle
     },
     success : function(data){
-      console.log(data);
-      var optionsIcon = document.createElement('i');
+      if ( $('body').attr('data-app-state') === 'onboarding' ) {
+        $('.edit-title').click(showList).attr('data-list-id', data._id);
+        $('.edit-title').trigger('click');
+      }
+
       $('.save-list-icon').addClass('animated fadeDownOut').remove();
-      $(optionsIcon).addClass('material-icons list-options animated fadeDownIn').html('more_vert').appendTo('.edit-mode');
       $('.edit-mode').attr({
         'data-list-id' : data._id
       }).removeClass('edit-mode').click(showList);
@@ -101,17 +75,26 @@ function updateList(){
   });
 }
 
+function editList(){
+  console.log('editList()');
+  console.log("I am going to give you a form to edit your list.");
+  $('.list-title').removeAttr('readonly').focus().select().on('blur keydown', updateList);
+}
+
+function updateList(){
+  console.log('updateList()');
+  console.log('Going to update that list in the DB now...');
+}
+
 function showAllLists(){
   console.log('showAllLists');
   $.ajax({
     url : '/lists',
     method : 'get',
     success : function(data){
-      $('.list-index').append(data);
+      console.log($('.FAB').hasClass('item-mode'));
+      $('body').append(data);
       $('.list-chip').addClass('animated fadeInUp').click(showList);
-      $('.FAB').addClass('swift-out').css({
-        top : '24px'
-      });
     },
     error : function(err){
       console.log("Error from server:", err);
@@ -120,6 +103,7 @@ function showAllLists(){
 }
 
 function showList(){
+  console.log('showList()');
   function makeBackButton(){
     console.log('makeBackButton');
     var button = document.createElement('button');
@@ -141,30 +125,40 @@ function showList(){
     $(button).append(icon, label).prependTo('.appnav')
   }
   var listId = $(this).attr('data-list-id');
+
   $('.list-chip').addClass('animated fadeOutDown').one(animationEnd, function(){
-    $('.list-chip').remove();
-    $.ajax({
-      url : '/lists/' + listId,
-      method : 'get',
-      success : function(data){
-        var html = data;
-        var listBgHeight = window.innerHeight - 192;
-        $(data).css('height', listBgHeight + 'px').appendTo('body');
-        $('#robby').css({
-          top : '164px'
-        }).unbind('click').click(newListItem);
-        makeBackButton();
-      },
-      error : function(err){
-        console.log(err);
+    $(this).remove();
+  });
+  $.ajax({
+    url : '/lists/' + listId,
+    method : 'get',
+    success : function(data){
+      console.log("Logging data in ShowList AJAX success callback", data);
+      var html = data;
+      var listBgHeight = window.innerHeight - 192;
+      if( $('body').attr('data-app-state') === 'onboarding'){
+        $('#welcome-to-doobot').remove();
+        $('#welcome-instructions').remove();
+        $('body').removeAttr('data-app-state');
       }
-    });
+      $('.list-index').remove();
+      $(data).appendTo('body');
+      $('.list-bg').css('height', listBgHeight + 'px');
+      $('#robby').attr({
+        class : 'FAB item-mode',
+        onclick : 'newListItem()'
+      });
+      makeBackButton();
+    },
+    error : function(err){
+      console.log(err);
+    }
   });
 }
 
 function newListItem(){
     //bound to FAB click event while in item index view.
-    console.log("Make a new list item!");
+    console.log('newListItem()');
 
     // GET a new Item from the DB
 
@@ -173,10 +167,10 @@ function newListItem(){
 
 function backToAllLists(){
   console.log("backToAllLists");
-  $('.list-title').removeClass('animated slideInUp enter')
+  $('.flex-row').removeClass('animated slideInUp enter')
     .addClass('animated fadeOutDown exit')
     .one(animationEnd, function(){
-      $('.list-title').remove();
+      $('.flex-row').remove();
     });
   $('.list-bg').removeClass('animated fadeInUp')
     .addClass('animated fadeOutDown')
@@ -188,13 +182,14 @@ function backToAllLists(){
     .one(animationEnd, function(){
       $('.all-lists').remove();
     });
-  $('#robby').unbind('click').click(createList);
+  $('#robby').attr({
+    onclick : 'createList()',
+    class : 'FAB'
+  });
   showAllLists();
 }
 
 $(document).ready(function() {
-
-  $('#robby').click(createList);
 
   $('.list-chip').click(showList);
 
@@ -202,86 +197,4 @@ $(document).ready(function() {
     height: window.innerHeight - 192 + 'px'
   });
 
-
-
-  // //Uncomment this if AJAX + jade.compile doesn't pan out
-
-  // With reload: User Clicks FAB in items index view...
-  // $('#add-item').click(function(){
-  //   $('.no-items').removeClass('animated slideInLeft').addClass('animated fadeOutDown');
-  //   if( $('.list-item').length ){
-  //     console.log('hit the if');
-  //     $('.list-item').addClass('animated fadeOutDown').one(animationEnd, function(){
-  //       window.location = '/items/new';
-  //     });
-  //   } else {
-  //     console.log('hit the else');
-  //
-  //   }
-  // });
-
-  // var listTitle = $('#list-title-item-view');
-  // if(listTitle){
-  //   var fab = $('#add-item');
-  //   $(listTitle).addClass('title-above-new-item');
-  //   $(fab).addClass('rotateToCancelPos');
-  // }
-
-  // Attempt at AJAX with jade.compile for one-page sweet goodness.
-  $('#add-item').click(function(){
-    $('.no-items').removeClass('animated slideInLeft').addClass('animated fadeOutDown');
-    $.ajax({
-      url : '/ajaxreqs',
-      method : 'get',
-      success : function(data){
-        debugger;
-        console.log("This is the data sent from the server in response to AJAX req");
-        console.log(data);
-      },
-      error : function(err){
-        console.log(err);
-      }
-    });
-  });
-
-
-  // User clicks FAB in items index view
-  // $('#add-item').click(function(){
-  //   //Remove the 'add a list item' hint
-  //   $('.no-items').removeClass('animated slideInLeft').addClass('animated fadeOutDown');
-  //   // Create the new item form elements
-  //   var form = document.createElement('form');
-  //   $(form).attr({
-  //     action : '/items',
-  //     method : 'post',
-  //     id : 'new-item',
-  //     class : '',
-  //     tabindex : 1
-  //   });
-  //   var divWrapperItem = document.createElement('div');
-  //   var itemStatusBubble = document.createElement('div');
-  //   $(itemStatusBubble).attr({
-  //     class : 'item-status'
-  //   }).click(function(){
-  //     // What happens when someone marks an item as done...
-  //   });
-  //
-  //   var inputItemTitle = document.createElement('input');
-  //   $(inputItemTitle).attr({
-  //     class : 'item-title',
-  //     type : 'text',
-  //     name : 'itemTitle',
-  //     placeholder : 'Describe this item...'
-  //   });
-  //
-  //   var saveList = document.createElement('input');
-  //   $(saveList).attr({
-  //     type: 'submit',
-  //     value: ''
-  //   }).addClass('save-FAB animated slideInUp');
-  //
-  //   var itemExtras  = document.createElement('div'); // needs to be moved under each item extra once written...
-  //   $(itemExtras).addClass('item-extras');
-
-  // });
 });

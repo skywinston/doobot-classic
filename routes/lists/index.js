@@ -29,6 +29,16 @@ router.route('/')
     });
   });
 
+router.route('/first')
+  .get(function(req, res, next){
+    res.render('lists/first');
+  });
+
+router.route('/edit')
+  .get(function(req, res, next){
+    res.render('lists/edit');
+  });
+
 router.route('/update')
   .post(function(req, res, next){
     List.create( { userId : req.user._id, listTitle : req.body.listTitle }, function(err, list){

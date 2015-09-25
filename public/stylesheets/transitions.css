@@ -117,3 +117,7 @@
   animation: roll-to-cancel;
   animation-duration: .3s;
 }
+
+.2msDelay {
+  animation-delay: .2s;
+}

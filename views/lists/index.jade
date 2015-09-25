@@ -1,4 +1,4 @@
-for list in lists
-  .list-chip(data-list-id="#{list._id}")
-    input.show-title(type="text", placeholder="Please name your list...", value="#{list.listTitle}" readonly)
-    i.material-icons.list-options more_vert
+.list-index
+  for list in lists
+    .list-chip(data-list-id="#{list._id}")
+      input.show-title(type="text", placeholder="Please name your list...", value="#{list.listTitle}" readonly)

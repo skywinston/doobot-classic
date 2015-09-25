@@ -1,5 +1,12 @@
 
-h1(class="list-title animated slideInUp enter")= list.listTitle
+#list-details.flex-row.animated.fadeInUp
+  input(class="list-title enter", value="#{list.listTitle}", data-list-id="#{list._id}", readonly)
+  a.flex-row.edit-list-title(onclick="editList()")
+    p.label Edit title
+    i.material-icons.label-icon edit
+  a.flex-row.delete-list(onclick="deleteList()")
+    p.label Delete List
+    i.material-icons.label-icon delete
 .list-bg.animated.fadeInUp
   if(!items.length)
     .no-items.animated.fadeInUp

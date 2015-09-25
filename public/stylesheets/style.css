@@ -6,8 +6,25 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
   padding: none;
   margin: none;
+  overflow-x: hidden;
 }
 
+.flex-row {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.first-mode {
+  align-self: center;
+  margin-top: -48px;
+}
 .appnav {
   display: flex;
   flex-flow: row;
@@ -40,6 +57,11 @@ body {
   font-weight: 500;
   text-decoration: none;
   color: #FAFAFA;
+}
+
+p.label {
+  text-transform: uppercase;
+  margin-left: 24px;
 }
 
 
@@ -82,20 +104,20 @@ h1.welcome {
 
 .onboarding {
   align-self: center;
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  width: 320px;
 }
 
-.onboarding > h1 {
+ h1#welcome-to-doobot {
+  align-self: center;
   font-weight: 400;
   font-size: 2.2em;
+  margin: 24px 0px;
 }
 
-.onboarding > h3 {
+h3.instructions {
+  align-self: center;
   font-weight: 500;
   font-size: 1.4em;
+  margin: 80px 0px 24px 0px;
 }
 
 .FAB {
@@ -146,6 +168,11 @@ h1.welcome {
   transition: all .3s;
 }
 
+.list-chip.first-mode {
+  width: 512px;
+  margin: 0;
+}
+
 .show-title {
   border: none;
   outline: none;
@@ -179,24 +206,41 @@ h1.welcome {
   margin-left: auto;
 }
 
-.list-options {
-  color: #BDBDBD;
-  margin-left: auto;
-  margin-right: -8px;
+#list-details {
+  align-items: center;
+  position: absolute;
+  top: 120px;
+  left: 0px;
+  right: 0px;
+  width: auto;
+  height: 64px;
   cursor: pointer;
-  z-index: 100;
 }
 
-input[type="text"].list-options {
+#list-details > a {
   cursor: pointer;
+}
+
+a.flex-row.delete-list {
+  margin-right: 16px;
+}
+
+.list-options {
+  align-self: auto;
+  margin-right: 16px;
+  margin-left: auto;
+}
+
+.label-icon {
+  margin-left: 8px;
 }
 
 .list-index {
   align-self: center;
   display: flex;
   flex-flow: row;
-  align-items: center;
   flex-wrap: wrap;
+  min-width: 448px;
   max-width: 840px;
   margin-top: 64px;
 }
@@ -205,7 +249,7 @@ input[type="text"].list-options {
   align-self: center;
   width: 48px;
   height: 48px;
-  margin-top: 40px;
+  margin-top: 32px;
   background-color: #EEEEEE;
   background: url(/images/save.svg) #EEEEEE center center no-repeat;
   border: none;
@@ -304,18 +348,45 @@ button.btn.btn-primary {
 }
 
 #robby.FAB {
-  position: absolute;
+  position: fixed;
   top: 24px;
   left: 24px;
   z-index: 2;
 }
 
-.list-title {
-  position: absolute;
-  top: 112px;
+#robby.FAB.onboarding {
+  position: fixed;
+  right: 0;
+  left: 0;
+  margin-right: auto;
+  margin-left: auto;
+  top: 164px;
+}
+
+#robby.item-mode {
+  position: fixed;
+  top: 164px;
+  left: 24px;
+  transition: all .3s;
+}
+
+input.list-title {
+  -webkit-order: 0;
+  -ms-flex-order: 0;
+  order: 0;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: auto;
+  -ms-flex-item-align: auto;
+  align-self: auto;
   margin-left: 104px;
   font-size: 2em;
   font-weight: 400;
+  color: #FAFAFA;
+  background: none;
+  border: none;
+  outline: none;
   transition: all .3s ease-in-out;
 }
 
@@ -325,6 +396,10 @@ button.btn.btn-primary {
 
 .list-title.exit {
   animation-delay: 0;
+}
+
+.open-options {
+  margin-left: auto;
 }
 
 .new-list.modal {
