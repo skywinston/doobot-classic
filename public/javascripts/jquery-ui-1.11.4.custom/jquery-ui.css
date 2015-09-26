@@ -188,6 +188,12 @@
 	width: 1.8em;
 	height: 1.8em;
 }
+
+.ui-datepicker-prev::before {
+	font-family: 'Material Icons';
+  font-style: normal;
+	content: 'e5cb';
+}
 .ui-datepicker .ui-datepicker-prev-hover,
 .ui-datepicker .ui-datepicker-next-hover {
 	top: 1px;
