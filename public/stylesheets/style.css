@@ -336,6 +336,7 @@ button.btn.btn-primary {
   background-color: #EEEEEE;
   position: absolute;
   top: 192px;
+  z-index: 2
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
@@ -351,7 +352,7 @@ button.btn.btn-primary {
   position: fixed;
   top: 24px;
   left: 24px;
-  z-index: 2;
+  z-index: 3;
 }
 
 #robby.FAB.onboarding {
@@ -539,4 +540,40 @@ input.list-title {
 .delete-option.confirm {
   background-color: #F44336;
   color: #FAFAFA;
+}
+
+.item-workspace {
+  align-self: center;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.item-chip {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  width: 736px;
+  height: 64px;
+  border-radius: 2px;
+  background-color: #FAFAFA;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  color: #424242;
+}
+
+/*ITEM STYLES*/
+
+.duedate {
+  display: flex;
+  flex-flow: column;
+  background-color: #FAFAFA;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  width: 320px;
+  height: 224px;
+}
+
+.datepicker {
+  width: 100%;
+  height: 100%;
 }

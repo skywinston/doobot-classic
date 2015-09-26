@@ -1,4 +1,8 @@
-.list-index
-  for list in lists
-    .list-chip(data-list-id="#{list._id}")
-      input.show-title(type="text", placeholder="Please name your list...", value="#{list.listTitle}" readonly)
+if(!lists.length)
+  h1.animated.fadeInDown(id="welcome-to-doobot") Welcome to DooBot
+  h3.instructions.animated.fadeInDown(id="welcome-instructions") Begin by creating a list.
+if(lists.length)
+  .list-index
+    for list in lists
+      .list-chip(data-list-id="#{list._id}")
+        input.show-title(type="text", placeholder="Please name your list...", value="#{list.listTitle}" readonly)

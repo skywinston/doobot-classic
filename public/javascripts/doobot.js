@@ -34,7 +34,6 @@ function createList(){
       $('.edit-title').focus().keydown(function(e){
         if (e.which === 13) { saveList() };
       });
-      $('.save-list-icon').click(saveList);
     },
     error : function(err){
       console.log("Error from server:", err);
@@ -227,9 +226,14 @@ function showAllLists(){
     url : '/lists',
     method : 'get',
     success : function(data){
-      console.log($('.FAB').hasClass('item-mode'));
       $('body').append(data);
       $('.list-chip').addClass('animated fadeInUp').click(showList);
+      if( $('.list-chip').length === 0 ){
+        $('#robby').attr({
+          class : "FAB onboarding",
+          onclick : 'createFirstList()'
+        });
+      }
     },
     error : function(err){
       console.log("Error from server:", err);
@@ -238,12 +242,22 @@ function showAllLists(){
 }
 
 function newListItem(){
-    //bound to FAB click event while in item index view.
-    console.log('newListItem()');
-
-    // GET a new Item from the DB
-
-    // Render the new Item block and send to AJAX request
+  console.log('newListItem()');
+  $.ajax({
+    url : '/items/new',
+    method : 'get',
+    success : function(html){
+      $('.no-items').addClass('animated fadeOutDown');
+      $('.edit-list-title').addClass('animated fadeOutDown');
+      $('.delete-list').addClass('animated fadeOutDown');
+      $('.list-bg').append(html);
+      $('.item-workspace').addClass('animated fadeInUp');
+      $('.datepicker').datepicker();
+    },
+    error : function(err){
+      console.log("Error from GET to /items/new:", err);
+    }
+  });
 }
 
 

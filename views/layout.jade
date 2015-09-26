@@ -6,10 +6,13 @@ html
     link(href="https://fonts.googleapis.com/icon?family=Material+Icons", rel="stylesheet")
     link(href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,200italic,300italic,300,400italic,600,600italic,700,700italic,900,900italic', rel='stylesheet', type='text/css')
     link(href="/bower_components/animate.css/animate.min.css", rel="stylesheet")
+    link(rel='stylesheet', href="/javascripts/jquery-ui-1.11.4.custom/jquery-ui.css")
     link(rel="stylesheet", href="/stylesheets/transitions.css")
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     block content
     block clientside
+      script(src='../../javascripts/knwl.min.js')
+      script(src="../../javascripts/jquery-ui-1.11.4.custom/jquery-ui.min.js")
       script(src='http://code.jquery.com/jquery.js')
       script(src="../../javascripts/doobot.js")

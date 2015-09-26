@@ -19,7 +19,6 @@ router.route('/')
   })
   .post(function(req, res, next){
     List.create( { userId : req.user._id, listTitle : req.body.listTitle }, function(err, list){
-      console.log("List from DB:", list, typeof list);
       res.send(list);
     });
   });
