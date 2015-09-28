@@ -14,6 +14,8 @@ var users = require('./routes/users');
 var lists = require('./routes/lists');
 var items = require('./routes/items');
 
+require('dotenv').load();
+
 var app = express();
 // mongoose
 mongoose.connect('mongodb://localhost/doobot');
