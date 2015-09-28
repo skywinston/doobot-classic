@@ -276,6 +276,11 @@ p.lead {
   align-self: flex-start;
 }
 
+p.lead > a {
+  color: #FAFAFA;
+  align-self: center;
+}
+
 form {
   display: flex;
   flex-flow: column;
