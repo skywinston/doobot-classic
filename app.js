@@ -18,7 +18,7 @@ require('dotenv').load();
 
 var app = express();
 // mongoose
-mongoose.connect('mongodb://localhost/doobot');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/doobot');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
